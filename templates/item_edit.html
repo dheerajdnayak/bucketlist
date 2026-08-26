@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Edit — {{ item.title }}{% endblock %}
+{% block content %}
+<div class="editor-container">
+    <div class="editor-toolbar">
+        <div class="toolbar-left">
+            <a href="{{ url_for('dashboard') }}" class="btn btn-outline btn-sm">← Back</a>
+            <span class="editor-title">{{ item.title }}</span>
+        </div>
+        <div class="toolbar-right">
+            <form method="POST" action="{{ url_for('edit_item', item_id=item.id) }}" id="editor-form">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() if csrf_token else '' }}">
+                <input type="text" name="title" value="{{ item.title }}" class="form-control title-input" placeholder="Title">
+                <textarea name="content" id="editor" style="display:none;">{{ item.content|safe }}</textarea>
+                <button type="submit" class="btn btn-primary btn-sm">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="editor-body">
+        <div id="editor-container"></div>
+    </div>
+</div>
+
+<!-- CKEditor 5 CDN (Full featured) -->
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const textarea = document.getElementById('editor');
+        const initialContent = textarea.value; // read saved HTML
+
+        ClassicEditor
+            .create(document.querySelector('#editor-container'), {
+                toolbar: {
+                    items: [
+                        'heading', '|',
+                        'bold', 'italic', 'underline', 'strikethrough', '|',
+                        'link', 'bulletedList', 'numberedList', '|',
+                        'outdent', 'indent', '|',
+                        'blockQuote', 'insertTable', 'mediaEmbed', '|',
+                        'undo', 'redo', '|',
+                        'imageUpload'
+                    ]
+                },
+                image: {
+                    toolbar: ['imageTextAlternative', 'imageStyle:full', 'imageStyle:side']
+                },
+                table: {
+                    contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
+                },
+                simpleUpload: {
+                    uploadUrl: '{{ url_for("upload_image") }}',
+                    withCredentials: true,
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() if csrf_token else "" }}'
+                    }
+                }
+            })
+            .then(editor => {
+                // ★ CRITICAL: load saved content into the editor
+                editor.setData(initialContent);
+
+                // Sync editor content back to textarea on every change
+                editor.model.document.on('change', () => {
+                    textarea.value = editor.getData();
+                });
+
+                // Also update right before form submit (extra safety)
+                const form = document.getElementById('editor-form');
+                form.addEventListener('submit', function(e) {
+                    textarea.value = editor.getData();
+                });
+            })
+            .catch(error => {
+                console.error('CKEditor error:', error);
+            });
+    });
+</script>
+{% endblock %}

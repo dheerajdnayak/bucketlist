@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Home — Bucketlist{% endblock %}
+{% block content %}
+<div class="hero">
+    <div class="hero-content">
+        <h1>Your Life’s Bucketlist</h1>
+        <p class="hero-sub">Capture the adventures, achievements, and moments you want to experience.<br>Never forget what truly matters.</p>
+        <div class="hero-actions">
+            <a href="{{ url_for('signup') }}" class="btn btn-primary">Get Started</a>
+            <a href="{{ url_for('login') }}" class="btn btn-outline">Log In</a>
+        </div>
+    </div>
+    <div class="hero-quote">
+        <blockquote>“The biggest adventure you can take is to live the life of your dreams.”</blockquote>
+        <cite>— Oprah Winfrey</cite>
+    </div>
+</div>
+{% endblock %}
