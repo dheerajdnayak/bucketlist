@@ -37,6 +37,10 @@ html.dark {
 
 }
 
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 
 /* ----- Reset & Base ----- */
 * { box-sizing: border-box; margin:0; padding:0; }
@@ -504,4 +508,5 @@ h1, h2, h3, .brand {
   .title-input {
     width:100%;
   }
+m {display: none;}
 }
