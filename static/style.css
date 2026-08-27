@@ -1,3 +1,6 @@
+/* Font */
+@import url('https://fonts.googleapis.com/css2?family=Geo:ital@0;1&family=Lexend:wght@100..900&family=Micro+5&family=Momo+Trust+Display&family=Quicksand:wght@300..700&display=swap');
+
 /* ----- Variables ----- */
 :root {
   /* Light theme */
@@ -11,7 +14,7 @@
   --accent-warm: #e6b8a2;
   --shadow: 0 8px 30px rgba(0,0,0,0.06);
   --radius: 16px;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Lexend', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-heading: 'Playfair Display', Georgia, serif;
 
   --svgbuck: var(--text);
