@@ -302,6 +302,8 @@ h1, h2, h3, .brand {
   display:flex;
   flex-direction:column;
   gap:16px;
+  margin-bottom: 32px;
+
 }
 .item-card {
   background:var(--surface);
@@ -336,6 +338,7 @@ h1, h2, h3, .brand {
   font-size:0.95rem;
   color:var(--text-muted);
   margin:4px 0 6px;
+  overflow: hidden;
 }
 .item-meta {
   display:flex;
